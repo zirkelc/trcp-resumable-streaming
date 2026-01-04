@@ -1,4 +1,5 @@
 import { z } from 'zod';
+import { generateId } from '../shared/utils';
 import { publicProcedure, router } from './trpc';
 
 /** Zod schema for message input */
@@ -27,11 +28,6 @@ const messages: Array<Message> = [];
 const responses = [
   `This is a very long message that will take a while to stream so we can test the interrupt and resume functionality properly and see if everything works as expected`,
 ];
-
-/** Generates a random ID */
-function generateId(): string {
-  return Math.random().toString(36).substring(2, 15);
-}
 
 /** Simulated LLM API that returns a ReadableStream of words */
 function completion(): ReadableStream<string> {
@@ -178,7 +174,7 @@ export const appRouter = router({
 
       /* Create assistant message placeholder */
       const assistantMessage: Message = {
-        id: generateId(),
+        id: generateId(`assistant`),
         content: ``,
         role: `assistant`,
         createdAt: Date.now(),
@@ -201,10 +197,7 @@ export const appRouter = router({
 
   /** Mutation to resume a streaming message */
   resumeMessage: publicProcedure
-    .input(z.object({
-      id: z.string(),
-      content: z.string(),
-    }))
+    .input(messageSchema)
     .mutation(async function* ({ input }): AsyncGenerator<StreamChunk> {
       console.log(`[resumeMessage] Called with id=${input.id}, content="${input.content}"`);
 

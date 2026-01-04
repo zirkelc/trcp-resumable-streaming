@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MessageBubble } from './Message';
 import { trpc, trpcClient, type Message } from './trpc';
+import { generateId } from '../shared/utils';
 
 export function Chat() {
   const [input, setInput] = useState(``);
@@ -23,12 +24,11 @@ export function Chat() {
       const signal = abortControllerRef.current.signal;
 
       /* Create user message */
-      const now = Date.now();
       const userMessage: Message = {
-        id: `user-${now}`,
+        id: generateId(`user`),
         content,
         role: `user`,
-        createdAt: now,
+        createdAt: Date.now(),
         status: `done`,
       };
 
@@ -145,7 +145,7 @@ export function Chat() {
       setIsInterrupted(false);
 
       const stream = await trpcClient.resumeMessage.mutate(
-        { id: message.id, content: message.content },
+        message,
         { signal }
       );
 

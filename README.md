@@ -44,6 +44,8 @@ If the client disconnects, the background task continues. When `resumeMessage` i
 
 ```
 ├── src/
+│   ├── shared/
+│   │   └── utils.ts      # Shared utilities (generateId)
 │   ├── server/
 │   │   ├── index.ts      # HTTP server with CORS
 │   │   ├── router.ts     # tRPC router with procedures
@@ -83,7 +85,7 @@ Sends a user message and streams back an assistant response.
 #### `resumeMessage`
 Resumes a streaming message from the client's current position.
 
-- **Input**: `{ id: string, content: string }`
+- **Input**: `Message`
 - **Yields**: `AsyncGenerator<StreamChunk>`
 - **Behavior**:
   - Finds message by ID
