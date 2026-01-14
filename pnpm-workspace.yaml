@@ -1,1 +1,3 @@
+packages:
+  - src/examples/*
 onlyBuiltDependencies: esbuild

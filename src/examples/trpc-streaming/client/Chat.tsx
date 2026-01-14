@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { MessageBubble } from './Message';
 import { trpc, trpcClient, type Message } from './trpc';
-import { generateId } from '../shared/utils';
+import { generateId } from '../../../shared/utils';
 
 export function Chat() {
   const [input, setInput] = useState(``);

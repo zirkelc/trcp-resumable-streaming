@@ -3,11 +3,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev:server": "tsx watch src/server/index.ts",
-    "dev:client": "vite",
-    "dev": "echo 'Run dev:server and dev:client in separate terminals'",
-    "build": "vite build",
-    "preview": "vite preview"
+    "dev:trpc": "pnpm --filter trpc-streaming \"/^dev:.*/\""
   },
   "dependencies": {
     "@tanstack/react-query": "^5.62.0",

@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { generateId } from '../shared/utils';
+import { generateId } from '../../../shared/utils';
 import { publicProcedure, router } from './trpc';
 
 /** Zod schema for message input */

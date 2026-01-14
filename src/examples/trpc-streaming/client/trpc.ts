@@ -12,10 +12,12 @@ export type Message = RouterOutput['listMessages'][number];
 
 export const queryClient = new QueryClient();
 
+const apiPort = import.meta.env.VITE_API_PORT ?? 3000;
+
 export const trpcClient = createTRPCClient<AppRouter>({
   links: [
     httpBatchStreamLink({
-      url: `http://localhost:3000`,
+      url: `http://localhost:${apiPort}`,
     }),
   ],
 });
